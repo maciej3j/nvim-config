@@ -10,6 +10,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	{ 'kepano/flexoki-neovim', name = 'flexoki' },
     -- Telescope
     'nvim-telescope/telescope.nvim',
     -- CMAKE
@@ -87,7 +88,7 @@ require("lazy").setup({
         style = "dark",        -- lub "light", zależnie od preferencji
         transparent = false,   -- czy tło ma być przezroczyste
       })
-      vim.cmd("colorscheme vscode")
+      vim.cmd("colorscheme flexoki")
     end,
   },
 
@@ -97,7 +98,7 @@ require("lazy").setup({
   -- LSP
   "neovim/nvim-lspconfig",
 
-  -- Autouzupełnianie
+    -- Autouzupełnianie
   "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp",
   "L3MON4D3/LuaSnip",
@@ -122,6 +123,33 @@ require("lazy").setup({
     })
   end,
 },
+-- bufferline
+{
+    "akinsho/bufferline.nvim",
+    version = "*",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons"
+    },
+    config = function()
+      require("bufferline").setup({
+        options = {
+          mode = "buffers", -- lub "tabs" jeśli chcesz taby zamiast buforów
+          diagnostics = "nvim_lsp",
+          separator_style = "slant", -- opcjonalnie: "thin", "slant", "padded_slant"
+          show_buffer_close_icons = false,
+          show_close_icon = false,
+          offsets = {
+            {
+              filetype = "NvimTree",
+              text = "File Explorer",
+              highlight = "Directory",
+              text_align = "left"
+            }
+          }
+        }
+      })
+    end
+  },
 
 
   -- Kolorowanie składni
@@ -141,7 +169,6 @@ require("nvim-treesitter.configs").setup {
 -- lsp
 local lspconfig = require("lspconfig")
 lspconfig.clangd.setup {}
-
 -- cmp
 local cmp = require("cmp")
 cmp.setup {
@@ -206,3 +233,10 @@ map('s', '<C-s>', '<Esc>:w<CR>i', opts)  -- select mode
 
 vim.o.updatetime = 550
 vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]]
+vim.opt.clipboard = "unnamedplus"
+
+vim.lsp.enable('pyright')
+-- bufferline
+vim.keymap.set("n", "<Tab>", ":BufferLineCycleNext<CR>", {})
+vim.keymap.set("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", {})
+vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", {})
