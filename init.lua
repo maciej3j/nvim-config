@@ -13,23 +13,6 @@ require("lazy").setup({
 	{ 'kepano/flexoki-neovim', name = 'flexoki' },
     -- Telescope
     'nvim-telescope/telescope.nvim',
-    -- CMAKE
-        {
-      "Civitasv/cmake-tools.nvim",
-      config = function()
-        require("cmake-tools").setup({
-          executor = {
-            name = "terminal",
-            prefix_name = "[CMake Tools]",
-            direction = "float",
-            cmake_command = "cmake",
-            build_dir = "build",
-            build_type = "Debug",
-          },
-        })
-      end
-    },
-
     -- nvim-autopairs
     {
     'windwp/nvim-autopairs',
@@ -70,7 +53,7 @@ require("lazy").setup({
         cpp = { "clang_format" },
         c = { "clang_format" },
         h = { "clang_format" },
-        cmake = { "cmake_format" },
+
         -- dodaj inne rozszerzenia, jeśli chcesz
       },
       format_on_save = {
@@ -193,8 +176,9 @@ vim.g.mapleader = " "
 require("lualine").setup()
 
 -- ToggleTerm
-vim.keymap.set("n", "<C-\\>", ":ToggleTerm<CR>", { noremap = true, silent = true })
-vim.keymap.set("t", "<C-\\>", [[<C-\><C-n>:ToggleTerm<CR>]], { noremap = true, silent = true })
+vim.keymap.set("n", "<C-_>", ":ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("t", "<C-_>", [[<C-\><C-n>:ToggleTerm<CR>]], { noremap = true, silent = true })
+
 
 -- nvim-tree
 vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { noremap = true, silent = true })
@@ -205,11 +189,6 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find f
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
-
--- cmake-tools
-vim.keymap.set("n", "<leader>cg", ":CMakeGenerate<CR>")
-vim.keymap.set("n", "<leader>cb", ":CMakeBuild<CR>")
-vim.keymap.set("n", "<leader>cr", ":CMakeRun<CR>")
 
 vim.o.number = true
 vim.o.relativenumber = true
