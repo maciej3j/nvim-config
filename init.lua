@@ -19,7 +19,7 @@ require("lazy").setup({
     event = "InsertEnter",
     config = true
 },
-
+{'ThePrimeagen/vim-be-good'},
     -- flash.nvim
     {
   "folke/flash.nvim",
