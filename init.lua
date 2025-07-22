@@ -9,8 +9,28 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.cmd [[let &shell = '"C:/Users/KMO8LOD/AppData/Local/Programs/Git/bin/bash.exe"']]
+vim.cmd [[let &shellcmdflag = '-s']]
 require("lazy").setup({
-	{ 'kepano/flexoki-neovim', name = 'flexoki' },
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
+  },
+{ 'kepano/flexoki-neovim', name = 'flexoki' },
     -- Telescope
     'nvim-telescope/telescope.nvim',
     -- nvim-autopairs
@@ -92,7 +112,18 @@ require("lazy").setup({
   "nvim-tree/nvim-tree.lua",
   dependencies = { "nvim-tree/nvim-web-devicons" }, -- opcjonalne ikonki
   config = function()
-    require("nvim-tree").setup()
+  require("nvim-tree").setup({
+    renderer = {
+      icons = {
+        show = {
+          file = true,
+          folder = true,
+          folder_arrow = true,
+          git = true,
+        },
+      },
+    },
+  })
   end
 },
  -- terminal
@@ -102,6 +133,7 @@ require("lazy").setup({
   config = function()
     require("toggleterm").setup({
       open_mapping = [[<C-\\>]],
+      shell = "C:/Users/KMO8LOD/AppData/Local/Programs/Git/bin/bash.exe",
       direction = "horizontal", -- inne opcje: 'floating', 'vertical'
     })
   end,
